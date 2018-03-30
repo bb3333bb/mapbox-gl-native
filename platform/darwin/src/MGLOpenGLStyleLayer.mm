@@ -13,9 +13,6 @@ public:
         layerRef = styleLayer;
         layer = nil;
     }
-    ~MGLOpenGLLayerHost () {
-        layer = nil;
-    }
 
     void initialize() {
         if (layerRef == nil) return;
@@ -25,7 +22,7 @@ public:
     }
 
     void render(const mbgl::style::CustomLayerRenderParameters &params) {
-        assert(layerRef);
+        if(!layer) return;
 
         MGLStyleLayerDrawingContext drawingContext = {
             .size = CGSizeMake(params.width, params.height),
